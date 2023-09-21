@@ -5,16 +5,61 @@
         <script src="https://unpkg.com/jspsych@7.3.3"></script>
         <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.2"></script>
         <link href="https://unpkg.com/jspsych@7.3.3/css/jspsych.css" rel="stylesheet" type="text/css" />
+        <script src="https://unpkg.com/@jspsych/plugin-survey-text@1.1.2"></script>
+        <script src="jsPsych/modified-image-plugin.js"></script> 
     </head>
     <body></body>
     <script>
-        const x = initJsPsych () ;
-        const hello_trial = {
+        const jsPsych = initJsPsych () ;
+        var sentence = {
             type: jsPsychHtmlKeyboardResponse,
-            stimulus: 'Have a great day',
-            choices: ['Y','N'],
+            stimulus: 'I want to see a foobly mipp',
+            choices: [' '],
             trial_duration: 500 
         }
-        x.run([hello_trial]);
+        var attention = {
+            type: jsPsychSurveyText,
+            questions:[{prompt: "Type any ONE novel word from the previous sentence:"}]
+        } 
+        var association = {
+            type:jsPsychSurveyText,
+            questions:[{prompt: "foobly"}],
+        }
+        var fixation={
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: "+",
+            trial_duration: 500,
+            choices: "NO_KEYS"
+        }
+        var image={
+            type:jsPsychImageKeyboardResponse,
+            stimulus:"applehorse.png",
+            choices: "NO_KEYS",
+            trial_duration: 500,
+            stimulus_width: 500,
+            maintain_aspect_ratio: true,
+            prompt:"<span style= 'font-size:170%'><br><br></span>"
+            
+        }
+        var prime ={
+            type:jsPsychImageKeyboardResponse,
+            stimulus:"applehorse.png",
+            choices: "NO_KEYS",
+            trial_duration: 500,
+            stimulus_width: 500,
+            maintain_aspect_ratio: true,
+            prompt:"<span style= 'font-size:170%'>foobly<br><br></span>"
+        }
+        var target={
+            type:jsPsychImageKeyboardResponse,
+            stimulus:"applehorse.png",
+            choices:["A","L"],
+            stimulus_width: 500,
+            prompt:"<span style= 'font-size:170%'>apple<br><br></span>"
+        
+        }
+        
+
+        jsPsych.run([image,prime,target]);
     </script>
 </html>
